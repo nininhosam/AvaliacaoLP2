@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.byteboost.duck.gui.RegistryController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebebeb" height="133.0" layoutX="10.0" layoutY="10.0" stroke="TRANSPARENT" strokeType="INSIDE" width="425.0" />
+      <Group layoutX="-1036.0">
+         <children>
+            <Group layoutX="1248.0">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="630.0" layoutX="24.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/quack.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="32.0" fitWidth="630.0" layoutX="16.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/quack.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="32.0" fitWidth="630.0" layoutX="7.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/quack.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="32.0" fitWidth="630.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/quack.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Group>
+            <Group layoutX="832.0" layoutY="1.0">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="630.0" layoutX="24.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/quack.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="32.0" fitWidth="630.0" layoutX="16.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/quack.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="32.0" fitWidth="630.0" layoutX="7.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/quack.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="32.0" fitWidth="630.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/quack.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Group>
+         </children>
+      </Group>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="460.0" layoutY="90.0" stroke="TRANSPARENT" strokeType="INSIDE" width="450.0" />
+      <Circle centerX="50.0" centerY="50.0" fill="WHITE" layoutX="175.0" layoutY="25.0" radius="65.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <ImageView fitHeight="110.0" fitWidth="110.0" layoutX="170.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/ducklogoround.png" />
+         </image>
+      </ImageView>
+      <Button id="login_btn" fx:id="btn_back" layoutX="185.0" layoutY="490.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" styleClass="btn" stylesheets="@../css/main.css" text="Back" textAlignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <ScrollPane layoutX="25.0" layoutY="140.0" prefHeight="330.0" prefWidth="400.0" stylesheets="@../css/main.css">
+         <content>
+            <VBox fx:id="register" prefWidth="800.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

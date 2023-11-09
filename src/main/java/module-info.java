@@ -1,6 +1,7 @@
 module net.flpes.avaliacaolp2 {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
     opens net.flpes.avaliacaolp2 to javafx.fxml;
