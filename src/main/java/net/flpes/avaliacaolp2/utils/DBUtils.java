@@ -56,6 +56,44 @@ public class DBUtils {
         }
         return "Não existe nenhum aluno cadastrado.";
     }
+    public static void removeAluno(Aluno aluno){
+        String sql = "delete from alunos where cpf=?";
+        try {
+
+            Connection connection =  getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            stmt.setString(1, aluno.getCpf());
+            stmt.execute();
+            stmt.close();
+            connection.close();
+
+        }
+        catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+    public static void updateAluno(Aluno aluno){
+        String sql = "update alunos set nome=?, peso=?, altura=? where cpf = ?";
+        try {
+
+            Connection connection =  getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            stmt.setString(1, aluno.getNome());
+            stmt.setString(2, String.valueOf(aluno.getPeso()));
+            stmt.setString(3, String.valueOf(aluno.getAltura()));
+            stmt.setString(4, aluno.getCpf());
+            stmt.execute();
+            stmt.close();
+            connection.close();
+
+        }
+        catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
 //    public static String getAluno(String info, String row,int equals){
 //        String sql = "SELECT " + info + " FROM activity_register WHERE "+ row +"="+ equals;
 //        try{
