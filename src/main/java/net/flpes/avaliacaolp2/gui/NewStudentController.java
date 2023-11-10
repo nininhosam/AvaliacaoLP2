@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import net.flpes.avaliacaolp2.models.Aluno;
+import net.flpes.avaliacaolp2.models.AlunoBuilder;
 import net.flpes.avaliacaolp2.utils.DBUtils;
 
 import java.time.LocalDate;
@@ -25,12 +26,13 @@ public class NewStudentController {
 
     @FXML
     protected void onSendButtonClick() {
-        String nome = tf_Nome.getText();
-        String cpf =  tf_CPF.getText();
-        double peso = Double.parseDouble(tf_Peso.getText());
-        double altura = Double.parseDouble(tf_Altura.getText());
-        LocalDate nasc = dp_Nasc.getValue();
-        Aluno aluno = new Aluno(cpf, nome, nasc, peso, altura);
+        AlunoBuilder builder = new AlunoBuilder()
+                .named(tf_Nome.getText())
+                .withCpf(tf_CPF.getText())
+                .bornOn(dp_Nasc.getValue())
+                .weighing(Double.parseDouble(tf_Peso.getText()))
+                .standingAt(Double.parseDouble(tf_Altura.getText()));
+        Aluno aluno = builder.build();
         DBUtils.addAluno(aluno);
     }
 }
