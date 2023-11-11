@@ -28,6 +28,7 @@ public class StudentListController implements Initializable {
     @FXML
     private VBox vb_list;
     HBox selected = null;
+    public static String alunoCpf = null;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         for (Aluno aluno : Objects.requireNonNull(DBUtils.getAlunos())) {
@@ -41,11 +42,11 @@ public class StudentListController implements Initializable {
             hBox.setSpacing(20);
             hBox.onMouseClickedProperty().set((MouseEvent t)->{
                 if (selected != null){
-                    selected.setBackground(Background.EMPTY);
+                    selected.getStyleClass().clear();
                 }
                 this.selected = hBox;
-                hBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-                btn_toAluno.setBackground(new Background(new BackgroundFill(Color.rgb( 51, 204, 170), CornerRadii.EMPTY, Insets.EMPTY)));
+                hBox.getStyleClass().add("optionSelected");
+                btn_toAluno.getStyleClass().add("buttonOn");
             });
             vb_list.getChildren().add(hBox);
 
@@ -53,8 +54,12 @@ public class StudentListController implements Initializable {
 
         btn_toRegister.setOnAction(event ->
                 GUIUtils.changeScene(event, "NewStudent.fxml", "Add new student"));
-        btn_toAluno.setOnAction(event ->
-                GUIUtils.changeScene(event, "NewStudent.fxml", "student")
-        );
+
+        btn_toAluno.setOnAction(event -> {
+                if (selected != null) {
+                    alunoCpf = ((Label) selected.getChildren().get(0)).getText();
+                    GUIUtils.changeScene(event, "StudentProfile.fxml", "Student Profile");
+                }
+        });
     }
 }

@@ -5,6 +5,7 @@ import net.flpes.avaliacaolp2.models.Aluno;
 import net.flpes.avaliacaolp2.models.AlunoBuilder;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,27 +108,37 @@ public class DBUtils {
         }
     }
 
-//    public static String getAluno(String info, String row,int equals){
-//        String sql = "SELECT " + info + " FROM activity_register WHERE "+ row +"="+ equals;
-//        try{
-//
-//            Connection connection = getConnection();
-//            PreparedStatement stmt = connection.prepareStatement(sql);
-//            ResultSet rs = stmt.executeQuery(sql);
-//
-//            if(!rs.isBeforeFirst()){
-//                System.out.println("User not found");
-//
-//            }else {
-//                rs.next();
-//                return rs.getString(1);
-//            }
-//
-//        }catch (SQLException exception){
-//            throw new RuntimeException(exception);
-//        }
-//        return "No info found";
-//    }
+    public static Aluno getAluno(String cpf){
+        String sql = "SELECT * FROM alunos WHERE CPF = ?";
+        Aluno aluno;
+        try{
+            Connection connection = getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, cpf);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if(!rs.isBeforeFirst()){
+                System.out.println("User not found");
+
+            }else {
+                rs.next();
+                AlunoBuilder builder = new AlunoBuilder()
+                        .named(rs.getString("cpf"))
+                        .withCpf(rs.getString("nome"))
+                        .bornOn(LocalDate.parse(rs.getString("dataNasc")))
+                        .weighing(Double.parseDouble(rs.getString("peso")))
+                        .standingAt(Double.parseDouble(rs.getString("altura")));
+                aluno = builder.build();
+                return aluno;
+            }
+
+        }catch (SQLException exception){
+            throw new RuntimeException(exception);
+        }
+        aluno = new AlunoBuilder().build();
+        return aluno;
+    }
 
 //    public static void logInUser(ActionEvent event, User user){
 //        Connection connection = null;

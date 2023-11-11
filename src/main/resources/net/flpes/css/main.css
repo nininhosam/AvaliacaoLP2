@@ -1,0 +1,11 @@
+.buttonOff{
+-fx-background-color:#cccccc;
+-fx-cursor:default;
+}
+.buttonOn{
+-fx-background-color:#33ccaa;
+-fx-cursor:hand;
+}
+.optionSelected{
+-fx-background-color:#D3D3D3;
+}
