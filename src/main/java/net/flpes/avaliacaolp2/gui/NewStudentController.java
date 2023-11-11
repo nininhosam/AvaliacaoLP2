@@ -39,10 +39,16 @@ public class NewStudentController implements Initializable {
         tf_Peso.setText("");
         tf_Altura.setText("");
     }
+    private boolean cpfIsValid(String string){
+        return string.matches("([0-9]{2}[.]?[0-9]{3}[.]?[0-9]{3}[/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}[-]?[0-9]{2})");
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         btn_Register.setOnAction(event -> {
+
+            if (!cpfIsValid(tf_CPF.getText())) System.out.println("CPF invalid!");
+            else{
             AlunoBuilder builder = new AlunoBuilder()
                     .named(tf_Nome.getText())
                     .withCpf(tf_CPF.getText())
@@ -52,6 +58,7 @@ public class NewStudentController implements Initializable {
             Aluno aluno = builder.build();
             DBUtils.addAluno(aluno);
             emptyAlunoFields();
+            }
         });
 
         btn_Back.setOnAction(event ->

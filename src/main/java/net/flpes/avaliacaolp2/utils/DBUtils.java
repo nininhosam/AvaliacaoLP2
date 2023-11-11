@@ -2,8 +2,12 @@ package net.flpes.avaliacaolp2.utils;
 
 import net.flpes.avaliacaolp2.keys.DBKeys;
 import net.flpes.avaliacaolp2.models.Aluno;
+import net.flpes.avaliacaolp2.models.AlunoBuilder;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class DBUtils {
     public static Connection getConnection() throws SQLException {
@@ -35,8 +39,9 @@ public class DBUtils {
             throw new RuntimeException(exception);
         }
     }
-    public static String getAlunos(){
+    public static List<Aluno> getAlunos(){
         String sql = "SELECT nome, cpf FROM alunos";
+        List<Aluno> todosAlunos = new ArrayList<>();
         try{
 
             Connection connection = getConnection();
@@ -45,16 +50,24 @@ public class DBUtils {
 
             if(!rs.isBeforeFirst()){
                 System.out.println("User not found");
-
             }else {
-                rs.next();
-                return rs.getString(1);
-            }
+                while(rs.next()){
+                    String nome = rs.getString("nome");
+                    String cpf = rs.getString("cpf");
+                    AlunoBuilder builder = new AlunoBuilder();
+                    Aluno aluno = builder
+                            .named(nome)
+                            .withCpf(cpf)
+                            .build();
+                    todosAlunos.add(aluno);
 
+                }
+            }
         }catch (SQLException exception){
             throw new RuntimeException(exception);
         }
-        return "Não existe nenhum aluno cadastrado.";
+        return todosAlunos;
+
     }
     public static void removeAluno(Aluno aluno){
         String sql = "delete from alunos where cpf=?";
