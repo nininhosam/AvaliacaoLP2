@@ -40,7 +40,7 @@ public class NewStudentController implements Initializable {
         tf_Altura.setText("");
     }
     private boolean cpfIsValid(String string){
-        return string.matches("([0-9]{2}[.]?[0-9]{3}[.]?[0-9]{3}[/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}[-]?[0-9]{2})");
+        return string.matches("([0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}[-]?[0-9]{2})");
     }
 
     @Override
@@ -49,9 +49,10 @@ public class NewStudentController implements Initializable {
 
             if (!cpfIsValid(tf_CPF.getText())) System.out.println("CPF invalid!");
             else{
+            String treatedCPF = tf_CPF.getText().replace(".","").replace("-", "");
             AlunoBuilder builder = new AlunoBuilder()
                     .named(tf_Nome.getText())
-                    .withCpf(tf_CPF.getText())
+                    .withCpf(treatedCPF)
                     .bornOn(dp_Nasc.getValue())
                     .weighing(Double.parseDouble(tf_Peso.getText()))
                     .standingAt(Double.parseDouble(tf_Altura.getText()));

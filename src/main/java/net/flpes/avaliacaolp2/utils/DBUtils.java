@@ -88,16 +88,20 @@ public class DBUtils {
         }
     }
     public static void updateAluno(Aluno aluno){
-        String sql = "update alunos set nome=?, peso=?, altura=? where cpf = ?";
+        String sql = "update alunos set nome=?, dataNasc=?, peso=?, altura=? where cpf=?";
         try {
 
             Connection connection =  getConnection();
             PreparedStatement stmt = connection.prepareStatement(sql);
 
+            System.out.println("didit");
             stmt.setString(1, aluno.getNome());
-            stmt.setString(2, String.valueOf(aluno.getPeso()));
-            stmt.setString(3, String.valueOf(aluno.getAltura()));
-            stmt.setString(4, aluno.getCpf());
+            stmt.setString(2, String.valueOf(aluno.getDataNasc()));
+            stmt.setString(3, String.valueOf(aluno.getPeso()));
+            stmt.setString(4, String.valueOf(aluno.getAltura()));
+            stmt.setString(5, aluno.getCpf());
+            System.out.println(aluno.getAltura());
+            System.out.println(aluno.getCpf());
             stmt.execute();
             stmt.close();
             connection.close();
@@ -124,8 +128,8 @@ public class DBUtils {
             }else {
                 rs.next();
                 AlunoBuilder builder = new AlunoBuilder()
-                        .named(rs.getString("cpf"))
-                        .withCpf(rs.getString("nome"))
+                        .named(rs.getString("nome"))
+                        .withCpf(rs.getString("cpf"))
                         .bornOn(LocalDate.parse(rs.getString("dataNasc")))
                         .weighing(Double.parseDouble(rs.getString("peso")))
                         .standingAt(Double.parseDouble(rs.getString("altura")));
