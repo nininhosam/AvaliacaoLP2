@@ -1,33 +1,41 @@
 package net.flpes.avaliacaolp2.models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class HistoricoPesoBuilder {
+    private Aluno aluno = new AlunoBuilder().build();
+    private LocalDateTime dataCalculo;
+    private int id;
 
-    private String cpf;
-    private double peso;
-    private double altura;
-    private LocalDate dataCalculo;
     public HistoricoPeso build(){
-        return new HistoricoPeso(cpf, dataCalculo, peso, altura);
+        return new HistoricoPeso(aluno, dataCalculo, id);
     }
     public HistoricoPesoBuilder(){
-        dataCalculo = LocalDate.now();
+        dataCalculo = LocalDateTime.now();
     }
-    public HistoricoPesoBuilder ofCpf(String cpf){
-        this.cpf = cpf;
+    public HistoricoPesoBuilder ofAluno(Aluno aluno){
+        this.aluno.setPeso(aluno.getPeso());
+        this.aluno.setCpf(aluno.getCpf());
+        this.aluno.setNome(aluno.getNome());
+        this.aluno.setAltura(aluno.getAltura());
+        this.aluno.setDataNasc(aluno.getDataNasc());
         return this;
     }
-    public HistoricoPesoBuilder measuredOn(LocalDate data){
+    public HistoricoPesoBuilder measuredOn(LocalDateTime data){
         this.dataCalculo = data;
         return this;
     }
     public HistoricoPesoBuilder weighing(double pesoEmKg){
-        this.peso = pesoEmKg;
+        this.aluno.setPeso(pesoEmKg);
         return this;
     }
     public HistoricoPesoBuilder standingAt(double alturaEmCm){
-        this.altura = alturaEmCm;
+        this.aluno.setAltura(alturaEmCm);
+        return this;
+    }
+    public HistoricoPesoBuilder identifiedBy(int id){
+        this.id = id;
         return this;
     }
 

@@ -8,6 +8,8 @@ import net.flpes.avaliacaolp2.models.HistoricoPesoBuilder;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +54,7 @@ public class DBUtils {
             ResultSet rs = stmt.executeQuery(sql);
 
             if(!rs.isBeforeFirst()){
-                System.out.println("User not found");
+                System.out.println("Alunos not found");
             }else {
                 while(rs.next()){
                     String nome = rs.getString("nome");
@@ -96,14 +98,11 @@ public class DBUtils {
             Connection connection =  getConnection();
             PreparedStatement stmt = connection.prepareStatement(sql);
 
-            System.out.println("didit");
             stmt.setString(1, aluno.getNome());
             stmt.setString(2, String.valueOf(aluno.getDataNasc()));
             stmt.setString(3, String.valueOf(aluno.getPeso()));
             stmt.setString(4, String.valueOf(aluno.getAltura()));
             stmt.setString(5, aluno.getCpf());
-            System.out.println(aluno.getAltura());
-            System.out.println(aluno.getCpf());
             stmt.execute();
             stmt.close();
             connection.close();
@@ -124,7 +123,7 @@ public class DBUtils {
             ResultSet rs = stmt.executeQuery();
 
             if(!rs.isBeforeFirst()){
-                System.out.println("User not found");
+                System.out.println("Aluno not found");
 
             }else {
                 rs.next();
@@ -165,15 +164,48 @@ public class DBUtils {
             throw new RuntimeException(exception);
         }
     }
-    public static List<HistoricoPeso> getHistoricoCompleto(){
-        //SQL query to get every entry in Historico
-        return new ArrayList<HistoricoPeso>();
+    public static List<HistoricoPeso> getHistoricoCompleto(Aluno aluno){
+        String sql = "select historico.id , alunos.nome as aluno, historico.peso, historico.altura, historico.datacalculo as 'Data do calculo' from alunos join historico where historico.cpf=alunos.cpf and historico.cpf=?";
+        List<HistoricoPeso> todosHistoryEntries = new ArrayList<>();
+        try{
+
+            Connection connection = getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, aluno.getCpf());
+            ResultSet rs = stmt.executeQuery();
+
+            if(!rs.isBeforeFirst()){
+                System.out.println("Entries not found");
+            }else {
+                while(rs.next()){
+
+                    String peso = rs.getString("peso");
+                    String altura = rs.getString("altura");
+                    String dataCalc = rs.getString("Data do calculo");
+                    String id = rs.getString("id");
+                    HistoricoPesoBuilder builder = new HistoricoPesoBuilder();
+                    HistoricoPeso entry = builder
+                            .ofAluno(aluno)
+                            .weighing(Double.parseDouble(peso))
+                            .standingAt(Double.parseDouble(altura))
+                            .measuredOn(LocalDateTime.parse(dataCalc.replace(" ", "T")))
+                            .identifiedBy(Integer.parseInt(id))
+                            .build();
+                    todosHistoryEntries.add(entry);
+
+                }
+            }
+        }catch (SQLException exception){
+            throw new RuntimeException(exception);
+        }
+        return todosHistoryEntries;
     }
     public static HistoricoPeso getHistoricoEntry (HistoricoPeso entrada){
         //SQL query to get a single entry WHERE id = id
         return new HistoricoPesoBuilder().build();
     }
-    public static void removeHistoricoEntry(HistoricoPeso entrada){
+    public static void removeHistoricoEntry(String id){
+        System.out.println(id);
         //SQL query to remove entry WHERE id = id
     }
 }

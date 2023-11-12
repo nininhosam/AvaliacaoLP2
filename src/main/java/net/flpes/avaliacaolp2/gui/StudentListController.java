@@ -62,14 +62,14 @@ public class StudentListController implements Initializable {
             hBox.getChildren().add(lbNome);
             hBox.setSpacing(20);
             hBox.onMouseClickedProperty().set((MouseEvent t)->{
-                if (selected != null){;
+                if (selected != null){
                     selected.getStyleClass().clear();
                 }
-                deactivateButton(btn_Delete, "buttonDanger");
                 this.selected = hBox;
                 hBox.getStyleClass().add("optionSelected");
-                confirmation = false;
                 activateSelectDependent();
+                deactivateButton(btn_Delete, "buttonDanger");
+                confirmation = false;
             });
             vb_list.getChildren().add(hBox);
 
@@ -93,11 +93,17 @@ public class StudentListController implements Initializable {
                     confirmation = true;
                 } else {
                     alunoCpf = ((Label) selected.getChildren().get(0)).getText();
-                    vb_list.getChildren().remove(selected);
-                    deactivateSelectDependent();
-                    selected = null;
-                    confirmation = false;
-                    //DBUtils.removeAluno(alunoCpf);
+                    try {
+                        DBUtils.removeAluno(alunoCpf);
+
+                        vb_list.getChildren().remove(selected);
+                        deactivateSelectDependent();
+                        selected = null;
+                        confirmation = false;
+                    } catch (Exception exc){
+                        System.out.println("Failed to delete user");
+                    }
+
                 }
             }
         });

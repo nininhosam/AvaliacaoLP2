@@ -1,19 +1,18 @@
 package net.flpes.avaliacaolp2.models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class HistoricoPeso {
-    private String cpf;
-    private LocalDate dataCalculo;
-    private double peso;
-    private double altura;
+    private int id;
+    private Aluno aluno;
+    private LocalDateTime dataCalculo;
 
-    public HistoricoPeso(String cpf, LocalDate dataCalc, double peso, double altura) {
-        this.cpf = cpf;
+    public HistoricoPeso(Aluno aluno, LocalDateTime dataCalc, int id) {
+        this.aluno = aluno;
         this.dataCalculo = dataCalc;
-        this.peso = peso;
-        this.altura = altura;
+        this.id = id;
     }
     private String interpretaIMC(double imc){
         if (16 > imc) return "Magreza grau III";
@@ -26,45 +25,46 @@ public class HistoricoPeso {
         return "Obesidade muito severa (grau III)";
     }
     public void calcularIMC(){
-        double imc = this.peso/Math.pow(this.altura/100, 2);
-        System.out.println("No dia" + this.dataCalculo.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) +
-                "Com cpf" + this.cpf +
-                "O(a)" +
-                "tinha o IMC de" + imc +
-                "que representa: " + interpretaIMC(imc));
+        double imc = this.aluno.getPeso()/Math.pow(this.aluno.getAltura()/100, 2);
+        //Delete this
+        System.out.println("No dia " + this.dataCalculo.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) +
+                " Com cpf " + this.aluno.getCpf() +
+                " O(a) " + this.aluno.getNome() +
+                " tinha o IMC de " + imc +
+                " que representa: " + interpretaIMC(imc));
 
         // gravar em um arquivo[data, cpf, nome, imc, interpretação]
     }
 
     public String getCpf() {
-        return cpf;
+        return aluno.getCpf();
     }
 
     public void setCpf(String cpf) {
-        this.cpf = cpf;
+        this.aluno.setCpf(cpf);
     }
 
-    public LocalDate getDataCalculo() {
+    public LocalDateTime getDataCalculo() {
         return dataCalculo;
     }
 
-    public void setDataNasc(LocalDate dataNasc) {
+    public void setDataCalculo(LocalDateTime dataNasc) {
         this.dataCalculo = dataNasc;
     }
 
-    public double getPeso() {
-        return peso;
-    }
+    public double getPeso() { return aluno.getPeso(); }
+    public void setPeso(double peso) { this.aluno.setPeso(peso); }
 
-    public void setPeso(double peso) {
-        this.peso = peso;
-    }
-
-    public double getAltura() {
-        return altura;
-    }
+    public double getAltura() { return this.aluno.getAltura(); }
 
     public void setAltura(double altura) {
-        this.altura = altura;
+        this.aluno.setAltura(altura);
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 }
