@@ -12,7 +12,7 @@
       <TextField fx:id="tf_CPF" layoutX="50.0" layoutY="105.0" prefHeight="35.0" prefWidth="250.0" promptText="CPF" style="-fx-background-color: #cccccc;" />
       <TextField fx:id="tf_Peso" layoutX="50.0" layoutY="160.0" prefHeight="35.0" prefWidth="250.0" promptText="Peso" />
       <TextField fx:id="tf_Altura" layoutX="50.0" layoutY="215.0" prefHeight="35.0" prefWidth="250.0" promptText="Altura" />
-      <Button fx:id="btn_Back" layoutX="50.0" layoutY="395.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #33ccaa;" text="Back">
+      <Button fx:id="btn_Back" layoutX="50.0" layoutY="395.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="buttonGet" stylesheets="@../css/main.css" text="Back">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -20,7 +20,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="btn_History" layoutX="200.0" layoutY="395.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #33ccaa;" text="History">
+      <Button fx:id="btn_History" layoutX="200.0" layoutY="395.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="buttonGet" stylesheets="@../css/main.css" text="History">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -29,7 +29,7 @@
          </cursor>
       </Button>
       <TextField fx:id="tf_Nascimento" layoutX="50.0" layoutY="270.0" prefHeight="35.0" prefWidth="250.0" promptText="Data de Nascimento" style="-fx-background-color: #CCCCCC;" />
-      <Button fx:id="btn_Save" layoutX="125.0" layoutY="325.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #00cfdf;" text="Save">
+      <Button fx:id="btn_Save" layoutX="125.0" layoutY="325.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="buttonUpdate" stylesheets="@../css/main.css" text="Save">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>

@@ -16,11 +16,11 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 
-public class StudentListController implements Initializable {
+public class StudentHistoryController implements Initializable {
+    @FXML
+    private Button btn_Back;
     @FXML
     private Button btn_Add;
-    @FXML
-    private Button btn_Select;
     @FXML
     private Button btn_Update;
     @FXML
@@ -39,46 +39,47 @@ public class StudentListController implements Initializable {
 
     }
     void activateSelectDependent(){
-        activateButton(btn_Select, "buttonOn");
         activateButton(btn_Update, "buttonUpdate");
         activateButton(btn_Delete, "buttonDelete");
     }
     void deactivateSelectDependent(){
-        deactivateButton(btn_Select, "buttonOn");
         deactivateButton(btn_Update, "buttonUpdate");
         deactivateButton(btn_Delete, "buttonDelete");
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        for (Aluno aluno : Objects.requireNonNull(DBUtils.getAlunos())) {
+//        for (Aluno aluno : Objects.requireNonNull(DBUtils.getAlunos())) {
+//
+//            Label lbCpf = new Label(aluno.getCpf());
+//            Label lbNome = new Label(aluno.getNome());
+//            HBox hBox = new HBox();
+//            lbCpf.setPrefWidth(80);
+//            hBox.getChildren().add(lbCpf);
+//            hBox.getChildren().add(lbNome);
+//            hBox.setSpacing(20);
+//            hBox.onMouseClickedProperty().set((MouseEvent t)->{
+//                if (selected != null){;
+//                    selected.getStyleClass().clear();
+//                }
+//                this.selected = hBox;
+//                hBox.getStyleClass().add("optionSelected");
+//                activateSelectDependent();
+//            });
+//            vb_list.getChildren().add(hBox);
+//
+//        }
 
-            Label lbCpf = new Label(aluno.getCpf());
-            Label lbNome = new Label(aluno.getNome());
-            HBox hBox = new HBox();
-            lbCpf.setPrefWidth(80);
-            hBox.getChildren().add(lbCpf);
-            hBox.getChildren().add(lbNome);
-            hBox.setSpacing(20);
-            hBox.onMouseClickedProperty().set((MouseEvent t)->{
-                if (selected != null){;
-                    selected.getStyleClass().clear();
-                }
-                this.selected = hBox;
-                hBox.getStyleClass().add("optionSelected");
-                activateSelectDependent();
-            });
-            vb_list.getChildren().add(hBox);
+        btn_Back.setOnAction(event ->
+                GUIUtils.changeScene(event, "StudentList.fxml", "List of students"));
 
-        }
-
-        btn_Add.setOnAction(event ->
-                GUIUtils.changeScene(event, "NewStudent.fxml", "Add new student"));
 
         btn_Update.setOnAction(event -> {
             if (selected != null) {
                 alunoCpf = ((Label) selected.getChildren().get(0)).getText();
-                GUIUtils.changeScene(event, "StudentProfile.fxml", "Student Profile");
+                //Mayhaps another tab?
+//                GUIUtils.changeScene(event, "StudentProfile.fxml", "Student Profile");
+                //DBUtils.addHistorico(historico)
             }
         });
 
@@ -88,14 +89,7 @@ public class StudentListController implements Initializable {
                 vb_list.getChildren().remove(selected);
                 deactivateSelectDependent();
                 selected = null;
-                DBUtils.removeAluno(alunoCpf);
-            }
-        });
-
-        btn_Select.setOnAction(event -> {
-            if (selected != null) {
-                alunoCpf = ((Label) selected.getChildren().get(0)).getText();
-                GUIUtils.changeScene(event, "StudentHistory.fxml", "Student Health History");
+                //DBUtils.removeHistorico(historico);
             }
         });
     }

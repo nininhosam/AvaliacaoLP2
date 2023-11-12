@@ -70,14 +70,14 @@ public class DBUtils {
         return todosAlunos;
 
     }
-    public static void removeAluno(Aluno aluno){
+    public static void removeAluno(String cpf){
         String sql = "delete from alunos where cpf=?";
         try {
 
             Connection connection =  getConnection();
             PreparedStatement stmt = connection.prepareStatement(sql);
 
-            stmt.setString(1, aluno.getCpf());
+            stmt.setString(1, cpf);
             stmt.execute();
             stmt.close();
             connection.close();

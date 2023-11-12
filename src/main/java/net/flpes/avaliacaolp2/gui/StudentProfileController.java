@@ -64,7 +64,7 @@ public class StudentProfileController implements Initializable {
         );
 
         btn_History.setOnAction(event ->
-                GUIUtils.changeScene(event, "StudentList.fxml", "List of students")
+                GUIUtils.changeScene(event, "StudentHistory.fxml", "List of students")
         );
 
     }
