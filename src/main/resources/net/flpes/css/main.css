@@ -35,3 +35,7 @@
 -fx-border-style:solid;
 -fx-border-width:2px;
 }
+.tableTitle{
+-fx-background-color:#B3B3B3;
+-fx-font-weight:bold;
+}

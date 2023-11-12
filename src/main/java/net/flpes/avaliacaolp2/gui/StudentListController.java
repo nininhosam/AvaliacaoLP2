@@ -50,17 +50,26 @@ public class StudentListController implements Initializable {
         deactivateButton(btn_Delete, "buttonDanger");
     }
 
+    private HBox addNewRow(String cpf, String nome){
+        Label lbCpf = new Label(cpf);
+        Label lbNome = new Label(nome);
+        HBox hBox = new HBox();
+        lbCpf.setPrefWidth(80);
+        hBox.getChildren().add(lbCpf);
+        hBox.getChildren().add(lbNome);
+        hBox.setSpacing(20);
+        vb_list.getChildren().add(hBox);
+        return hBox;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        HBox titles = addNewRow("CPF", "Aluno");
+        titles.getStyleClass().add("tableTitle");
         for (Aluno aluno : Objects.requireNonNull(DBUtils.getAlunos())) {
-
-            Label lbCpf = new Label(aluno.getCpf());
-            Label lbNome = new Label(aluno.getNome());
-            HBox hBox = new HBox();
-            lbCpf.setPrefWidth(80);
-            hBox.getChildren().add(lbCpf);
-            hBox.getChildren().add(lbNome);
-            hBox.setSpacing(20);
+            String cpf = aluno.getCpf();
+            String nome = aluno.getNome();
+            HBox hBox = addNewRow(cpf, nome);
             hBox.onMouseClickedProperty().set((MouseEvent t)->{
                 if (selected != null){
                     selected.getStyleClass().clear();
@@ -71,8 +80,6 @@ public class StudentListController implements Initializable {
                 deactivateButton(btn_Delete, "buttonDanger");
                 confirmation = false;
             });
-            vb_list.getChildren().add(hBox);
-
         }
 
         btn_Add.setOnAction(event ->

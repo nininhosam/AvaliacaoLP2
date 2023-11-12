@@ -55,25 +55,39 @@ public class StudentHistoryController implements Initializable {
         deactivateButton(btn_Delete, "buttonDanger");
     }
 
+    private HBox addNewRow(String id, String data, String altura, String peso){
+        Label lbId = new Label(id);
+        Label lbData = new Label(data);
+        Label lbAltura = new Label(altura);
+        Label lbPeso = new Label(peso);
+        HBox hBox = new HBox();
+        lbId.setPrefWidth(15);
+        lbData.setPrefWidth(100);
+        lbPeso.setPrefWidth(40);
+        lbAltura.setPrefWidth(40);
+        hBox.getChildren().add(lbId);
+        hBox.getChildren().add(lbData);
+        hBox.getChildren().add(lbAltura);
+        hBox.getChildren().add(lbPeso);
+        hBox.setSpacing(20);
+        vb_list.getChildren().add(hBox);
+        return hBox;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         lb_TitleName.setText(referencia.getNome());
+        HBox titles = addNewRow("ID", "Data Medida", "Altura", "Peso");
+        titles.getStyleClass().add("tableTitle");
         for (HistoricoPeso entrada : Objects.requireNonNull(DBUtils.getHistoricoCompleto(referencia))) {
 
-            Label lbId = new Label(String.valueOf(entrada.getId()));
-            Label lbData = new Label(entrada.getDataCalculo().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm")));
-            Label lbAltura = new Label(String.valueOf(entrada.getAltura()));
-            Label lbPeso = new Label(String.valueOf(entrada.getPeso()));
-            HBox hBox = new HBox();
+            String id =String.valueOf(entrada.getId());
+            String data = entrada.getDataCalculo().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm"));
+            String altura = String.valueOf(entrada.getAltura());
+            String peso = String.valueOf(entrada.getPeso());
 
-            lbPeso.setPrefWidth(80);
-            hBox.getChildren().add(lbId);
-            hBox.getChildren().add(lbData);
-            hBox.getChildren().add(lbAltura);
-            hBox.getChildren().add(lbPeso);
-            hBox.setSpacing(20);
+            HBox hBox = addNewRow(id, data, altura, peso);
             hBox.onMouseClickedProperty().set((MouseEvent t)->{
-
                 if (selected != null){;
                     selected.getStyleClass().clear();
                 }
@@ -83,9 +97,8 @@ public class StudentHistoryController implements Initializable {
                 activateSelectDependent();
                 deactivateButton(btn_Delete, "buttonDanger");
                 confirmation = false;
-
             });
-            vb_list.getChildren().add(hBox);
+
         }
 
 
