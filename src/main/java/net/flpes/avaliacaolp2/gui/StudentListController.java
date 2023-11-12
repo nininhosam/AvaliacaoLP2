@@ -47,6 +47,7 @@ public class StudentListController implements Initializable {
         deactivateButton(btn_Select, "buttonOn");
         deactivateButton(btn_Update, "buttonUpdate");
         deactivateButton(btn_Delete, "buttonDelete");
+        deactivateButton(btn_Delete, "buttonDanger");
     }
 
     @Override
@@ -64,8 +65,10 @@ public class StudentListController implements Initializable {
                 if (selected != null){;
                     selected.getStyleClass().clear();
                 }
+                deactivateButton(btn_Delete, "buttonDanger");
                 this.selected = hBox;
                 hBox.getStyleClass().add("optionSelected");
+                confirmation = false;
                 activateSelectDependent();
             });
             vb_list.getChildren().add(hBox);
@@ -84,11 +87,18 @@ public class StudentListController implements Initializable {
 
         btn_Delete.setOnAction(event -> {
             if (selected != null) {
-                alunoCpf = ((Label) selected.getChildren().get(0)).getText();
-                vb_list.getChildren().remove(selected);
-                deactivateSelectDependent();
-                selected = null;
-                DBUtils.removeAluno(alunoCpf);
+                if (!confirmation) {
+                    deactivateButton(btn_Delete, "buttonDelete");
+                    activateButton(btn_Delete, "buttonDanger");
+                    confirmation = true;
+                } else {
+                    alunoCpf = ((Label) selected.getChildren().get(0)).getText();
+                    vb_list.getChildren().remove(selected);
+                    deactivateSelectDependent();
+                    selected = null;
+                    confirmation = false;
+                    //DBUtils.removeAluno(alunoCpf);
+                }
             }
         });
 

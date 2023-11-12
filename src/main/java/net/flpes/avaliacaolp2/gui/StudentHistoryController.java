@@ -8,6 +8,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import net.flpes.avaliacaolp2.models.Aluno;
+import net.flpes.avaliacaolp2.models.HistoricoPeso;
+import net.flpes.avaliacaolp2.models.HistoricoPesoBuilder;
 import net.flpes.avaliacaolp2.utils.DBUtils;
 import net.flpes.avaliacaolp2.utils.GUIUtils;
 
@@ -91,6 +93,10 @@ public class StudentHistoryController implements Initializable {
                 selected = null;
                 //DBUtils.removeHistorico(historico);
             }
+        });
+
+        btn_Add.setOnAction(event ->{
+            //Adicionar histórico ao banco e VBox
         });
     }
 }

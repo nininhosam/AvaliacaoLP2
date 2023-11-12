@@ -6,6 +6,11 @@
 -fx-background-color:#33ccaa;
 -fx-cursor:hand;
 }
+.buttonDanger{
+ -fx-background-color:#331111;
+ -fx-text-fill:#ff0000;
+ -fx-cursor:hand;
+ }
 .buttonUpdate{
 -fx-background-color:#ffc200;
 -fx-cursor:hand;

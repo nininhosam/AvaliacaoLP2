@@ -26,7 +26,7 @@ public class HistoricoPeso {
         return "Obesidade muito severa (grau III)";
     }
     public void calcularIMC(){
-        double imc = this.peso/Math.pow(this.altura, 2);
+        double imc = this.peso/Math.pow(this.altura/100, 2);
         System.out.println("No dia" + this.dataCalculo.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) +
                 "Com cpf" + this.cpf +
                 "O(a)" +
