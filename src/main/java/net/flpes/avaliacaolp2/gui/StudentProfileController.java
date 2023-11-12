@@ -3,17 +3,12 @@ package net.flpes.avaliacaolp2.gui;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import net.flpes.avaliacaolp2.models.Aluno;
-import net.flpes.avaliacaolp2.models.AlunoBuilder;
 import net.flpes.avaliacaolp2.utils.DBUtils;
 import net.flpes.avaliacaolp2.utils.GUIUtils;
-import org.w3c.dom.Text;
 
 import java.net.URL;
-import java.text.DateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
@@ -34,6 +29,7 @@ public class StudentProfileController implements Initializable {
     private Button btn_History;
     @FXML
     private Button btn_Back;
+    public static Aluno currentAluno = null;
 
     void lockTf(TextField tf, String value){
         // Sets a fixed value to TextField and locks it from being editted or focused.
@@ -63,9 +59,10 @@ public class StudentProfileController implements Initializable {
                 GUIUtils.changeScene(event, "StudentList.fxml", "List of students")
         );
 
-        btn_History.setOnAction(event ->
-                GUIUtils.changeScene(event, "StudentHistory.fxml", "List of students")
-        );
+        btn_History.setOnAction(event -> {
+            currentAluno = aluno;
+            GUIUtils.changeScene(event, "StudentHistory.fxml", "List of students");
+        });
 
     }
 }

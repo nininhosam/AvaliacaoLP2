@@ -3,6 +3,8 @@ package net.flpes.avaliacaolp2.utils;
 import net.flpes.avaliacaolp2.keys.DBKeys;
 import net.flpes.avaliacaolp2.models.Aluno;
 import net.flpes.avaliacaolp2.models.AlunoBuilder;
+import net.flpes.avaliacaolp2.models.HistoricoPeso;
+import net.flpes.avaliacaolp2.models.HistoricoPesoBuilder;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -111,7 +113,6 @@ public class DBUtils {
             throw new RuntimeException(exception);
         }
     }
-
     public static Aluno getAluno(String cpf){
         String sql = "SELECT * FROM alunos WHERE CPF = ?";
         Aluno aluno;
@@ -144,55 +145,35 @@ public class DBUtils {
         return aluno;
     }
 
-//    public static void logInUser(ActionEvent event, User user){
-//        Connection connection = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rspassword = null;
-//        try {
-//            connection = getConnection();
-//            stmt = connection.prepareStatement("SELECT password from users where username=?");
-//            stmt.setString(1, user.getUsername());
-//            rspassword = stmt.executeQuery();
-//
-//            if(!rspassword.isBeforeFirst()){
-//                System.out.println("User not found");
-//            }else {
-//                while (rspassword.next()){
-//                    String retrievedpassword = rspassword.getString("password");
-//                    if (retrievedpassword.equals(user.getPassword())){
-//                        GUIUtils.changeScene(event,"/fxml/upload.fxml","Duck - Upload");
-//                    }else {
-//                        System.out.println("password does not match username");
-//                    }
-//                }
-//            }
-//
-//        }catch(SQLException e){
-//            e.printStackTrace();
-//        }finally {
-//            if (rspassword != null){
-//                try {
-//                    rspassword.close();
-//                }catch (SQLException e){
-//                    e.printStackTrace();
-//                }
-//            }
-//            if (stmt != null){
-//                try {
-//                    stmt.close();
-//                }catch (SQLException e){
-//                    e.printStackTrace();
-//                }
-//            }
-//            if (connection != null){
-//                try {
-//                    connection.close();
-//                } catch (SQLException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//
-//    }
+    public static void addHistoricoEntry(HistoricoPeso hist){
+        String sql = "insert into historico(cpf, datacalculo, peso, altura) values (?, ?, ?, ?)";
+        try {
 
+            Connection connection =  getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            stmt.setString(1, hist.getCpf());
+            stmt.setString(2, String.valueOf(hist.getDataCalculo()));
+            stmt.setString(3, String.valueOf(hist.getPeso()));
+            stmt.setString(4, String.valueOf(hist.getAltura()));
+            stmt.execute();
+            stmt.close();
+            connection.close();
+
+        }
+        catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+    public static List<HistoricoPeso> getHistoricoCompleto(){
+        //SQL query to get every entry in Historico
+        return new ArrayList<HistoricoPeso>();
+    }
+    public static HistoricoPeso getHistoricoEntry (HistoricoPeso entrada){
+        //SQL query to get a single entry WHERE id = id
+        return new HistoricoPesoBuilder().build();
+    }
+    public static void removeHistoricoEntry(HistoricoPeso entrada){
+        //SQL query to remove entry WHERE id = id
+    }
 }

@@ -9,9 +9,9 @@ public class HistoricoPeso {
     private double peso;
     private double altura;
 
-    public HistoricoPeso(String cpf, LocalDate dataNasc, double peso, double altura) {
+    public HistoricoPeso(String cpf, LocalDate dataCalc, double peso, double altura) {
         this.cpf = cpf;
-        this.dataCalculo = dataNasc;
+        this.dataCalculo = dataCalc;
         this.peso = peso;
         this.altura = altura;
     }

@@ -96,7 +96,14 @@ public class StudentHistoryController implements Initializable {
         });
 
         btn_Add.setOnAction(event ->{
-            //Adicionar histórico ao banco e VBox
+            //Adicionar VBox
+            Aluno referencia = StudentProfileController.currentAluno;
+            HistoricoPesoBuilder builder = new HistoricoPesoBuilder();
+                        builder.ofCpf(referencia.getCpf())
+                                .standingAt(referencia.getAltura())
+                                .weighing(referencia.getPeso());
+            HistoricoPeso historico = builder.build();
+            DBUtils.addHistoricoEntry(historico);
         });
     }
 }
