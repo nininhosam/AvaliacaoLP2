@@ -226,7 +226,6 @@ public class DBUtils {
                         .withCpf(cpf)
                         .build();
                 HistoricoPesoBuilder builder = new HistoricoPesoBuilder()
-                        // NEED TO HAVE ALUNO FULL (at least CPF and NOME
                         .ofAluno(aluno)
                         .weighing(Double.parseDouble(peso))
                         .standingAt(Double.parseDouble(altura))
@@ -241,6 +240,26 @@ public class DBUtils {
         }
         historico = new HistoricoPesoBuilder().build();
         return historico;
+    }
+    public static void updateHistorico(HistoricoPeso historico){
+        String sql = "update historico set peso=?, altura=? where id=?";
+        try {
+
+            Connection connection =  getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            stmt.setString(1, String.valueOf(historico.getPeso()));
+            stmt.setString(2, String.valueOf(historico.getAltura()));
+            stmt.setString(3, String.valueOf(historico.getId()));
+
+            stmt.execute();
+            stmt.close();
+            connection.close();
+
+        }
+        catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        }
     }
     public static void removeHistoricoEntry(String id){
         String sql = "delete from historico where id=?";

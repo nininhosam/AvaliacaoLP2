@@ -3,30 +3,28 @@ package net.flpes.avaliacaolp2.gui;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import net.flpes.avaliacaolp2.models.Aluno;
 import net.flpes.avaliacaolp2.utils.DBUtils;
 import net.flpes.avaliacaolp2.utils.GUIUtils;
 
 import java.net.URL;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-public class StudentProfileController implements Initializable {
-    @FXML
-    private TextField tf_Nome;
+public class HistoryEntryEditController implements Initializable {
     @FXML
     private TextField tf_CPF;
     @FXML
-    private TextField tf_Nascimento;
+    private TextField tf_Nome;
     @FXML
     private TextField tf_Peso;
     @FXML
     private TextField tf_Altura;
     @FXML
-    private Button btn_Save;
+    private DatePicker dp_dataCalc;
     @FXML
-    private Button btn_History;
+    private Button btn_Save;
     @FXML
     private Button btn_Back;
     void lockTf(TextField tf, String value){
@@ -41,7 +39,6 @@ public class StudentProfileController implements Initializable {
         Aluno aluno = DBUtils.getAluno(StudentListController.alunoCpf);
         lockTf(tf_Nome, aluno.getNome());
         lockTf(tf_CPF, aluno.getCpf());
-        lockTf(tf_Nascimento, aluno.getDataNasc().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         tf_Peso.setText(String.valueOf(aluno.getPeso()));
         tf_Altura.setText(String.valueOf(aluno.getAltura()));
 
@@ -57,9 +54,6 @@ public class StudentProfileController implements Initializable {
                 GUIUtils.changeScene(event, "StudentList.fxml", "List of students")
         );
 
-        btn_History.setOnAction(event -> {
-            GUIUtils.changeScene(event, "StudentHistory.fxml", "List of students");
-        });
 
     }
 }
