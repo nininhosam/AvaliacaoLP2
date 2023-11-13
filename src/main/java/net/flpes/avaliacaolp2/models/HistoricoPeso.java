@@ -65,6 +65,14 @@ public class HistoricoPeso {
         this.aluno.setCpf(cpf);
     }
 
+    public String getNome() {
+        return aluno.getNome();
+    }
+
+    public void setNome(String nome) {
+        this.aluno.setNome(nome);
+    }
+
     public LocalDateTime getDataCalculo() {
         return dataCalculo;
     }

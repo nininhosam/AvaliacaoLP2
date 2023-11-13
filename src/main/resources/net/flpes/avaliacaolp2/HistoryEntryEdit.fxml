@@ -30,7 +30,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <DatePicker fx:id="do_dataCalc" layoutX="50.0" layoutY="310.0" prefHeight="35.0" prefWidth="250.0">
+      <DatePicker fx:id="dp_dataCalc" layoutX="50.0" layoutY="310.0" prefHeight="35.0" prefWidth="250.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

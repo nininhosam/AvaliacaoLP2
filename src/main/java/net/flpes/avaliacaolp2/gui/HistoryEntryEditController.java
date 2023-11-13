@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import net.flpes.avaliacaolp2.models.Aluno;
+import net.flpes.avaliacaolp2.models.HistoricoPeso;
 import net.flpes.avaliacaolp2.utils.DBUtils;
 import net.flpes.avaliacaolp2.utils.GUIUtils;
 
@@ -36,22 +37,24 @@ public class HistoryEntryEditController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Set student details
-        Aluno aluno = DBUtils.getAluno(StudentListController.alunoCpf);
-        lockTf(tf_Nome, aluno.getNome());
-        lockTf(tf_CPF, aluno.getCpf());
-        tf_Peso.setText(String.valueOf(aluno.getPeso()));
-        tf_Altura.setText(String.valueOf(aluno.getAltura()));
+        HistoricoPeso entry = DBUtils.getHistoricoEntry(StudentHistoryController.entryId);
+        lockTf(tf_Nome, entry.getNome());
+        lockTf(tf_CPF, entry.getCpf());
+        tf_Peso.setText(String.valueOf(entry.getPeso()));
+        tf_Altura.setText(String.valueOf(entry.getAltura()));
 
 
 
         btn_Save.setOnAction(event -> {
-            aluno.setPeso(Double.parseDouble(tf_Peso.getText()));
-            aluno.setAltura(Double.parseDouble(tf_Altura.getText()));
-            DBUtils.updateAluno(aluno);
+            entry.setPeso(Double.parseDouble(tf_Peso.getText()));
+            entry.setAltura(Double.parseDouble(tf_Altura.getText()));
+            entry.setDataCalculo(dp_dataCalc.getValue().atStartOfDay());
+            DBUtils.updateHistorico(entry);
+            GUIUtils.changeScene(event, "StudentList.fxml", "List of students");
         });
 
         btn_Back.setOnAction(event ->
-                GUIUtils.changeScene(event, "StudentList.fxml", "List of students")
+            GUIUtils.changeScene(event, "StudentList.fxml", "List of students")
         );
 
 

@@ -9,7 +9,6 @@ import net.flpes.avaliacaolp2.models.HistoricoPesoBuilder;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,15 +74,23 @@ public class DBUtils {
 
     }
     public static void removeAluno(String cpf){
+        //Run a query to delete any history entries related to the user first
+        String preSql = "delete from historico where cpf=?";
         String sql = "delete from alunos where cpf=?";
         try {
 
             Connection connection =  getConnection();
-            PreparedStatement stmt = connection.prepareStatement(sql);
 
+            PreparedStatement preStmt = connection.prepareStatement(preSql);
+            preStmt.setString(1, cpf);
+            preStmt.execute();
+            preStmt.close();
+
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, cpf);
             stmt.execute();
             stmt.close();
+
             connection.close();
 
         }

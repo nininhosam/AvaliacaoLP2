@@ -39,7 +39,7 @@ public class StudentHistoryController implements Initializable {
     @FXML
     private Label lb_TitleName;
     HBox selected = null;
-    public String entryId;
+    public static String entryId;
     private boolean confirmation = false;
     private final Aluno referencia = DBUtils.getAluno(StudentListController.alunoCpf);
     void activateButton(Button button, String actClass){
@@ -128,11 +128,11 @@ public class StudentHistoryController implements Initializable {
         btn_Update.setOnAction(event -> {
             if (selected != null) {
                 entryId = ((Label) selected.getChildren().get(0)).getText();
-                HistoricoPeso hist = DBUtils.getHistoricoEntry(entryId);
-                hist.setAltura(122);
-                hist.setPeso(22);
-                DBUtils.updateHistorico(hist);
-                //GUIUtils.changeScene(event, "HistoryEntryEdit.fxml", "Student Profile");
+//                HistoricoPeso hist = DBUtils.getHistoricoEntry(entryId);
+//                hist.setAltura(122);
+//                hist.setPeso(22);
+//                DBUtils.updateHistorico(hist);
+                GUIUtils.changeScene(event, "HistoryEntryEdit.fxml", "Student Profile");
             }
         });
 
