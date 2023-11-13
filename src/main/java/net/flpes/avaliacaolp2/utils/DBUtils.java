@@ -200,12 +200,63 @@ public class DBUtils {
         }
         return todosHistoryEntries;
     }
-    public static HistoricoPeso getHistoricoEntry (HistoricoPeso entrada){
-        //SQL query to get a single entry WHERE id = id
-        return new HistoricoPesoBuilder().build();
+    public static HistoricoPeso getHistoricoEntry (String id){
+        String sql = "select historico.id , alunos.cpf, alunos.nome as aluno, historico.peso, historico.altura, historico.datacalculo as 'Data do calculo' from alunos join historico where historico.cpf=alunos.cpf and historico.id=?";
+        HistoricoPeso historico;
+        try{
+            Connection connection = getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if(!rs.isBeforeFirst()){
+                System.out.println("Entry not found");
+
+            }else {
+                rs.next();
+                String nome = rs.getString("aluno");
+                String cpf = rs.getString("cpf");
+                String peso = rs.getString("peso");
+                String altura = rs.getString("altura");
+                String dataCalc = rs.getString("Data do calculo");
+                String entryId = rs.getString("id");
+                Aluno aluno = new AlunoBuilder()
+                        .named(nome)
+                        .withCpf(cpf)
+                        .build();
+                HistoricoPesoBuilder builder = new HistoricoPesoBuilder()
+                        // NEED TO HAVE ALUNO FULL (at least CPF and NOME
+                        .ofAluno(aluno)
+                        .weighing(Double.parseDouble(peso))
+                        .standingAt(Double.parseDouble(altura))
+                        .measuredOn(LocalDateTime.parse(dataCalc.replace(" ", "T")))
+                        .identifiedBy(Integer.parseInt(entryId));
+                historico = builder.build();
+                return historico;
+            }
+
+        }catch (SQLException exception){
+            throw new RuntimeException(exception);
+        }
+        historico = new HistoricoPesoBuilder().build();
+        return historico;
     }
     public static void removeHistoricoEntry(String id){
-        System.out.println(id);
-        //SQL query to remove entry WHERE id = id
+        String sql = "delete from historico where id=?";
+        try {
+
+            Connection connection =  getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            stmt.setString(1, id);
+            stmt.execute();
+            stmt.close();
+            connection.close();
+
+        }
+        catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        }
     }
 }

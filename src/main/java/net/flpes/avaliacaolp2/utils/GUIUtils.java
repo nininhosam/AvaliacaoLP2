@@ -23,6 +23,7 @@ public class GUIUtils {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle(title);
         stage.setScene(new Scene(root));
+        stage.setResizable(false);
         stage.show();
 
     }

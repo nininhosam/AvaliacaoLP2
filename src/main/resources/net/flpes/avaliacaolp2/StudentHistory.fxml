@@ -52,5 +52,13 @@
             <Font name="System Bold Italic" size="16.0" />
          </font>
       </Label>
+      <Button fx:id="btn_Archive" layoutX="25.0" layoutY="390.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" styleClass="buttonOff" stylesheets="@../css/main.css" text="Archive">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>

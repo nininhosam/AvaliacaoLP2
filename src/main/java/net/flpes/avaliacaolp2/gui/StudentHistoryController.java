@@ -14,7 +14,10 @@ import net.flpes.avaliacaolp2.models.HistoricoPesoBuilder;
 import net.flpes.avaliacaolp2.utils.DBUtils;
 import net.flpes.avaliacaolp2.utils.GUIUtils;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -23,6 +26,8 @@ import java.util.ResourceBundle;
 public class StudentHistoryController implements Initializable {
     @FXML
     private Button btn_Back;
+    @FXML
+    private Button btn_Archive;
     @FXML
     private Button btn_Add;
     @FXML
@@ -36,7 +41,7 @@ public class StudentHistoryController implements Initializable {
     HBox selected = null;
     public String entryId;
     private boolean confirmation = false;
-    private Aluno referencia = DBUtils.getAluno(StudentListController.alunoCpf);
+    private final Aluno referencia = DBUtils.getAluno(StudentListController.alunoCpf);
     void activateButton(Button button, String actClass){
         button.getStyleClass().add(actClass);
     }
@@ -46,10 +51,12 @@ public class StudentHistoryController implements Initializable {
 
     }
     void activateSelectDependent(){
+        activateButton(btn_Archive, "buttonAdd");
         activateButton(btn_Update, "buttonUpdate");
         activateButton(btn_Delete, "buttonDelete");
     }
     void deactivateSelectDependent(){
+        deactivateButton(btn_Archive, "buttonAdd");
         deactivateButton(btn_Update, "buttonUpdate");
         deactivateButton(btn_Delete, "buttonDelete");
         deactivateButton(btn_Delete, "buttonDanger");
@@ -106,7 +113,17 @@ public class StudentHistoryController implements Initializable {
         btn_Back.setOnAction(event ->
                 GUIUtils.changeScene(event, "StudentList.fxml", "List of students"));
 
-
+        btn_Archive.setOnAction(event -> {
+            if (selected != null) {
+                entryId = ((Label) selected.getChildren().get(0)).getText();
+                HistoricoPeso hist = DBUtils.getHistoricoEntry(entryId);
+                try {
+                    hist.gravarArquivo();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
 
         btn_Update.setOnAction(event -> {
             if (selected != null) {
@@ -134,7 +151,6 @@ public class StudentHistoryController implements Initializable {
                     entryId = ((Label) selected.getChildren().get(0)).getText();
                     try {
                         DBUtils.removeHistoricoEntry(entryId);
-                        System.out.println(entryId);
                         vb_list.getChildren().remove(selected);
                         deactivateSelectDependent();
                         selected = null;
@@ -150,13 +166,13 @@ public class StudentHistoryController implements Initializable {
 
 
         btn_Add.setOnAction(event ->{
-            //Adicionar VBox
             HistoricoPesoBuilder builder = new HistoricoPesoBuilder();
                         builder.ofAluno(referencia)
                                 .standingAt(referencia.getAltura())
                                 .weighing(referencia.getPeso());
             HistoricoPeso historico = builder.build();
             DBUtils.addHistoricoEntry(historico);
+            GUIUtils.changeScene(event, "StudentHistory.fxml", "Student Health History");
         });
     }
 

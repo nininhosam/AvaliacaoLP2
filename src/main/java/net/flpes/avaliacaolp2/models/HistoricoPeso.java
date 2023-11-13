@@ -1,5 +1,14 @@
 package net.flpes.avaliacaolp2.models;
 
+import net.flpes.avaliacaolp2.utils.DBUtils;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -24,16 +33,28 @@ public class HistoricoPeso {
         if (40 > imc) return "Obesidade severa (grau II)";
         return "Obesidade muito severa (grau III)";
     }
-    public void calcularIMC(){
-        double imc = this.aluno.getPeso()/Math.pow(this.aluno.getAltura()/100, 2);
-        //Delete this
-        System.out.println("No dia " + this.dataCalculo.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) +
-                " Com cpf " + this.aluno.getCpf() +
-                " O(a) " + this.aluno.getNome() +
-                " tinha o IMC de " + imc +
-                " que representa: " + interpretaIMC(imc));
 
-        // gravar em um arquivo[data, cpf, nome, imc, interpretação]
+    public double calcularIMC(){
+        double imc = this.aluno.getPeso()/Math.pow(this.aluno.getAltura()/100, 2);
+        return Math.floor(imc*100)/100;
+    }
+    public void gravarArquivo() throws IOException {
+        double imc = calcularIMC();
+        String data = this.dataCalculo.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String cpf = this.aluno.getCpf();
+        String nome = this.aluno.getNome();
+        String resultado = interpretaIMC(imc);
+
+        File imcLog = new File(System.getenv("TEMP")+"/PesoLog.txt");
+        if (!imcLog.exists()) {
+            imcLog.createNewFile();
+        }
+
+        FileWriter writer = new FileWriter(imcLog, true);
+        BufferedWriter bWriter = new BufferedWriter(writer);
+        bWriter.write(String.format("%s | %s | %s | %s | %s", data, cpf, nome, imc, resultado));
+        bWriter.newLine();
+        bWriter.close();
     }
 
     public String getCpf() {
