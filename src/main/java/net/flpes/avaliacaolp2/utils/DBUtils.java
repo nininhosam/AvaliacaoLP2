@@ -172,7 +172,7 @@ public class DBUtils {
         }
     }
     public static List<HistoricoPeso> getHistoricoCompleto(Aluno aluno){
-        String sql = "select historico.id , alunos.nome as aluno, historico.peso, historico.altura, historico.datacalculo as 'Data do calculo' from alunos join historico where historico.cpf=alunos.cpf and historico.cpf=?";
+        String sql = "select historico.id , alunos.nome as aluno, historico.peso, historico.altura, historico.datacalculo as 'Data do calculo' from alunos join historico where historico.cpf=alunos.cpf and historico.cpf=? order by historico.datacalculo";
         List<HistoricoPeso> todosHistoryEntries = new ArrayList<>();
         try{
 
@@ -249,7 +249,7 @@ public class DBUtils {
         return historico;
     }
     public static void updateHistorico(HistoricoPeso historico){
-        String sql = "update historico set peso=?, altura=? where id=?";
+        String sql = "update historico set peso=?, altura=?, datacalculo=? where id=?";
         try {
 
             Connection connection =  getConnection();
@@ -257,7 +257,8 @@ public class DBUtils {
 
             stmt.setString(1, String.valueOf(historico.getPeso()));
             stmt.setString(2, String.valueOf(historico.getAltura()));
-            stmt.setString(3, String.valueOf(historico.getId()));
+            stmt.setString(3, String.valueOf(historico.getDataCalculo()));
+            stmt.setString(4, String.valueOf(historico.getId()));
 
             stmt.execute();
             stmt.close();

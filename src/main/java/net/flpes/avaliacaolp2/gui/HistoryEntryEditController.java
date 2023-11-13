@@ -43,18 +43,16 @@ public class HistoryEntryEditController implements Initializable {
         tf_Peso.setText(String.valueOf(entry.getPeso()));
         tf_Altura.setText(String.valueOf(entry.getAltura()));
 
-
-
         btn_Save.setOnAction(event -> {
             entry.setPeso(Double.parseDouble(tf_Peso.getText()));
             entry.setAltura(Double.parseDouble(tf_Altura.getText()));
-            entry.setDataCalculo(dp_dataCalc.getValue().atStartOfDay());
+            if (dp_dataCalc.getValue() != null) entry.setDataCalculo(dp_dataCalc.getValue().atStartOfDay());
             DBUtils.updateHistorico(entry);
-            GUIUtils.changeScene(event, "StudentList.fxml", "List of students");
+            GUIUtils.changeScene(event, "StudentHistory.fxml", "Student Health History");
         });
 
         btn_Back.setOnAction(event ->
-            GUIUtils.changeScene(event, "StudentList.fxml", "List of students")
+            GUIUtils.changeScene(event, "StudentHistory.fxml", "Student Health History")
         );
 
 
