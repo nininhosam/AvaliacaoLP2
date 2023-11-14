@@ -1,15 +1,9 @@
 package net.flpes.avaliacaolp2.models;
 
-import net.flpes.avaliacaolp2.utils.DBUtils;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -18,11 +12,13 @@ public class HistoricoPeso {
     private Aluno aluno;
     private LocalDateTime dataCalculo;
 
+    // Constructor REQUIRES all properties on parameter
     public HistoricoPeso(Aluno aluno, LocalDateTime dataCalc, int id) {
         this.aluno = aluno;
         this.dataCalculo = dataCalc;
         this.id = id;
     }
+    // Accepts IMC value ; Returns a String with its corresponding meaning
     private String interpretaIMC(double imc){
         if (16 > imc) return "Magreza grau III";
         if (17 > imc) return "Magreza grau II";
@@ -34,22 +30,28 @@ public class HistoricoPeso {
         return "Obesidade muito severa (grau III)";
     }
 
+    // Returns IMC using the formula Peso/Altura^2
     public double calcularIMC(){
         double imc = this.aluno.getPeso()/Math.pow(this.aluno.getAltura()/100, 2);
         return Math.floor(imc*100)/100;
     }
+
+    // Writes to results to PesoLog.txt
     public void gravarArquivo() throws IOException {
+        // Values written to file
         double imc = calcularIMC();
         String data = this.dataCalculo.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         String cpf = this.aluno.getCpf();
         String nome = this.aluno.getNome();
         String resultado = interpretaIMC(imc);
 
+        // Gets current PesoLog.txt, or creates one if it doesn't exist. ===== PesoLog.txt is found on TEMP directory
         File imcLog = new File(System.getenv("TEMP")+"/PesoLog.txt");
         if (!imcLog.exists()) {
             imcLog.createNewFile();
         }
 
+        // Writes values to file by Appending (doesn't overwrite previous content)
         FileWriter writer = new FileWriter(imcLog, true);
         BufferedWriter bWriter = new BufferedWriter(writer);
         bWriter.write(String.format("%s | %s | %s | %s | %s", data, cpf, nome, imc, resultado));
@@ -57,6 +59,7 @@ public class HistoricoPeso {
         bWriter.close();
     }
 
+    // Getters and Setters for all properties
     public String getCpf() {
         return aluno.getCpf();
     }

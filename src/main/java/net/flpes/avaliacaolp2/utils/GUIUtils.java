@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class GUIUtils {
-
+    // Self-explanatory, Utility for changing the current window
     public static void changeScene(ActionEvent event, String fxmlFile, String title){
         Parent root = null;
         try{

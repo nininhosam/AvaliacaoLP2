@@ -1,7 +1,5 @@
 package net.flpes.avaliacaolp2.gui;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -13,7 +11,6 @@ import net.flpes.avaliacaolp2.utils.DBUtils;
 import net.flpes.avaliacaolp2.utils.GUIUtils;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class NewStudentController implements Initializable {
@@ -33,6 +30,7 @@ public class NewStudentController implements Initializable {
     private Button btn_Back;
 
     private void emptyAlunoFields(){
+        // Self-explanatory
         tf_Nome.setText("");
         tf_CPF.setText("");
         dp_Nasc.setValue(null);
@@ -40,11 +38,14 @@ public class NewStudentController implements Initializable {
         tf_Altura.setText("");
     }
     private boolean cpfIsValid(String string){
+        // Uses RegEx to certify CPF is valid cpf ===== A valid CPF is 11 numbers long, with optional "." and "-";
         return string.matches("([0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}[-]?[0-9]{2})");
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        // Adds aluno to database ===== Empties fields if successful
         btn_Register.setOnAction(event -> {
 
             if (!cpfIsValid(tf_CPF.getText())) System.out.println("CPF invalid!");
@@ -62,6 +63,7 @@ public class NewStudentController implements Initializable {
             }
         });
 
+        // Redirects to List of Students
         btn_Back.setOnAction(event ->
                 GUIUtils.changeScene(event, "StudentList.fxml", "List of students")
         );

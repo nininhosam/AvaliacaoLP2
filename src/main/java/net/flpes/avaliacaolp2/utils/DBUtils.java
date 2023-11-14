@@ -35,6 +35,7 @@ public class DBUtils {
             stmt.setString(4, String.valueOf(aluno.getPeso()));
             stmt.setString(5, String.valueOf(aluno.getAltura()));
             stmt.execute();
+
             stmt.close();
             connection.close();
 
@@ -67,11 +68,15 @@ public class DBUtils {
 
                 }
             }
+
+            stmt.close();
+            connection.close();
+
         }catch (SQLException exception){
             throw new RuntimeException(exception);
         }
-        return todosAlunos;
 
+        return todosAlunos;
     }
     public static void removeAluno(String cpf){
         //Run a query to delete any history entries related to the user first
@@ -89,8 +94,8 @@ public class DBUtils {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, cpf);
             stmt.execute();
-            stmt.close();
 
+            stmt.close();
             connection.close();
 
         }
@@ -111,6 +116,7 @@ public class DBUtils {
             stmt.setString(4, String.valueOf(aluno.getAltura()));
             stmt.setString(5, aluno.getCpf());
             stmt.execute();
+
             stmt.close();
             connection.close();
 
@@ -141,12 +147,20 @@ public class DBUtils {
                         .weighing(Double.parseDouble(rs.getString("peso")))
                         .standingAt(Double.parseDouble(rs.getString("altura")));
                 aluno = builder.build();
+
+                stmt.close();
+                connection.close();
                 return aluno;
             }
 
-        }catch (SQLException exception){
+            stmt.close();
+            connection.close();
+
+        }
+        catch (SQLException exception){
             throw new RuntimeException(exception);
         }
+
         aluno = new AlunoBuilder().build();
         return aluno;
     }
@@ -163,6 +177,7 @@ public class DBUtils {
             stmt.setString(3, String.valueOf(hist.getPeso()));
             stmt.setString(4, String.valueOf(hist.getAltura()));
             stmt.execute();
+
             stmt.close();
             connection.close();
 
@@ -202,25 +217,34 @@ public class DBUtils {
 
                 }
             }
-        }catch (SQLException exception){
+
+            stmt.close();
+            connection.close();
+
+        }
+        catch (SQLException exception){
             throw new RuntimeException(exception);
         }
+
         return todosHistoryEntries;
     }
     public static HistoricoPeso getHistoricoEntry (String id){
         String sql = "select historico.id , alunos.cpf, alunos.nome as aluno, historico.peso, historico.altura, historico.datacalculo as 'Data do calculo' from alunos join historico where historico.cpf=alunos.cpf and historico.id=?";
         HistoricoPeso historico;
         try{
+
             Connection connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(sql);
+
             stmt.setString(1, id);
 
             ResultSet rs = stmt.executeQuery();
 
-            if(!rs.isBeforeFirst()){
+            if (!rs.isBeforeFirst()){
                 System.out.println("Entry not found");
 
-            }else {
+            }
+            else {
                 rs.next();
                 String nome = rs.getString("aluno");
                 String cpf = rs.getString("cpf");
@@ -239,12 +263,20 @@ public class DBUtils {
                         .measuredOn(LocalDateTime.parse(dataCalc.replace(" ", "T")))
                         .identifiedBy(Integer.parseInt(entryId));
                 historico = builder.build();
+
+                stmt.close();
+                connection.close();
                 return historico;
             }
 
-        }catch (SQLException exception){
+            stmt.close();
+            connection.close();
+
+        }
+        catch (SQLException exception){
             throw new RuntimeException(exception);
         }
+
         historico = new HistoricoPesoBuilder().build();
         return historico;
     }
@@ -259,8 +291,8 @@ public class DBUtils {
             stmt.setString(2, String.valueOf(historico.getAltura()));
             stmt.setString(3, String.valueOf(historico.getDataCalculo()));
             stmt.setString(4, String.valueOf(historico.getId()));
-
             stmt.execute();
+
             stmt.close();
             connection.close();
 
@@ -278,6 +310,7 @@ public class DBUtils {
 
             stmt.setString(1, id);
             stmt.execute();
+
             stmt.close();
             connection.close();
 

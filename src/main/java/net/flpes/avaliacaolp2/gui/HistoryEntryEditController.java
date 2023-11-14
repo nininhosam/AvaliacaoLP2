@@ -5,7 +5,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import net.flpes.avaliacaolp2.models.Aluno;
 import net.flpes.avaliacaolp2.models.HistoricoPeso;
 import net.flpes.avaliacaolp2.utils.DBUtils;
 import net.flpes.avaliacaolp2.utils.GUIUtils;
@@ -36,14 +35,16 @@ public class HistoryEntryEditController implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Set student details
+        // Set entry's current details
         HistoricoPeso entry = DBUtils.getHistoricoEntry(StudentHistoryController.entryId);
         lockTf(tf_Nome, entry.getNome());
         lockTf(tf_CPF, entry.getCpf());
         tf_Peso.setText(String.valueOf(entry.getPeso()));
         tf_Altura.setText(String.valueOf(entry.getAltura()));
 
+        // Redirects to History List when done
         btn_Save.setOnAction(event -> {
+            // Updates Entry with the values on the textfield.
             entry.setPeso(Double.parseDouble(tf_Peso.getText()));
             entry.setAltura(Double.parseDouble(tf_Altura.getText()));
             if (dp_dataCalc.getValue() != null) entry.setDataCalculo(dp_dataCalc.getValue().atStartOfDay());
@@ -51,6 +52,7 @@ public class HistoryEntryEditController implements Initializable {
             GUIUtils.changeScene(event, "StudentHistory.fxml", "Student Health History");
         });
 
+        // Returns to History List
         btn_Back.setOnAction(event ->
             GUIUtils.changeScene(event, "StudentHistory.fxml", "Student Health History")
         );
