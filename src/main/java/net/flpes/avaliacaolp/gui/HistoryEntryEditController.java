@@ -41,6 +41,7 @@ public class HistoryEntryEditController implements Initializable {
         lockTf(tf_CPF, entry.getCpf());
         tf_Peso.setText(String.valueOf(entry.getPeso()));
         tf_Altura.setText(String.valueOf(entry.getAltura()));
+        dp_dataCalc.setValue(entry.getDataCalculo().toLocalDate());
 
         // Redirects to History List when done
         btn_Save.setOnAction(event -> {
