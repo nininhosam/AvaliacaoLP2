@@ -12,7 +12,7 @@ import net.flpes.avaliacaolp.utils.GUIUtils;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class HistoryEntryEditController implements Initializable {
+public class EditHistoryEntryController implements Initializable {
     @FXML
     private TextField tf_CPF;
     @FXML

@@ -12,7 +12,7 @@ import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-public class StudentProfileController implements Initializable {
+public class EditStudentController implements Initializable {
     @FXML
     private TextField tf_Nome;
     @FXML
