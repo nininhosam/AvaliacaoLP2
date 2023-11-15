@@ -25,8 +25,8 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-    mainModule = 'net.flpes.avaliacaolp2'
-    mainClass = 'net.flpes.avaliacaolp2.HelloApplication'
+    mainModule = 'net.flpes.avaliacaolp'
+    mainClass = 'net.flpes.avaliacaolp.Main'
 }
 
 javafx {

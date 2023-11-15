@@ -1,4 +1,4 @@
-package net.flpes.avaliacaolp2.keys;
+package net.flpes.avaliacaolp.keys;
 
 public class DBKeys {
     private static String SQLUser = System.getenv("DUCK_DB_USER");

@@ -1,13 +1,13 @@
-package net.flpes.avaliacaolp2.gui;
+package net.flpes.avaliacaolp.gui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import net.flpes.avaliacaolp2.models.HistoricoPeso;
-import net.flpes.avaliacaolp2.utils.DBUtils;
-import net.flpes.avaliacaolp2.utils.GUIUtils;
+import net.flpes.avaliacaolp.models.HistoricoPeso;
+import net.flpes.avaliacaolp.utils.DBUtils;
+import net.flpes.avaliacaolp.utils.GUIUtils;
 
 import java.net.URL;
 import java.util.ResourceBundle;

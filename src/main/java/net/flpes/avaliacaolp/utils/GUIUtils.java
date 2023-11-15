@@ -1,4 +1,4 @@
-package net.flpes.avaliacaolp2.utils;
+package net.flpes.avaliacaolp.utils;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +14,7 @@ public class GUIUtils {
     public static void changeScene(ActionEvent event, String fxmlFile, String title){
         Parent root = null;
         try{
-            FXMLLoader loader = new FXMLLoader(GUIUtils.class.getResource("/net/flpes/avaliacaolp2/"+fxmlFile));
+            FXMLLoader loader = new FXMLLoader(GUIUtils.class.getResource("/net/flpes/avaliacaolp/" +fxmlFile));
             root = loader.load();
         }catch (IOException exception){
             exception.printStackTrace();

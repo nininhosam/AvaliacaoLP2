@@ -1,4 +1,4 @@
-package net.flpes.avaliacaolp2;
+package net.flpes.avaliacaolp;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

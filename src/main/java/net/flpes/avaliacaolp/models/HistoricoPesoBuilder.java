@@ -1,4 +1,4 @@
-package net.flpes.avaliacaolp2.models;
+package net.flpes.avaliacaolp.models;
 
 import java.time.LocalDateTime;
 

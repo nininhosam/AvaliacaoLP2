@@ -1,10 +1,10 @@
-package net.flpes.avaliacaolp2.utils;
+package net.flpes.avaliacaolp.utils;
 
-import net.flpes.avaliacaolp2.keys.DBKeys;
-import net.flpes.avaliacaolp2.models.Aluno;
-import net.flpes.avaliacaolp2.models.AlunoBuilder;
-import net.flpes.avaliacaolp2.models.HistoricoPeso;
-import net.flpes.avaliacaolp2.models.HistoricoPesoBuilder;
+import net.flpes.avaliacaolp.keys.DBKeys;
+import net.flpes.avaliacaolp.models.Aluno;
+import net.flpes.avaliacaolp.models.AlunoBuilder;
+import net.flpes.avaliacaolp.models.HistoricoPeso;
+import net.flpes.avaliacaolp.models.HistoricoPesoBuilder;
 
 import java.sql.*;
 import java.time.LocalDate;

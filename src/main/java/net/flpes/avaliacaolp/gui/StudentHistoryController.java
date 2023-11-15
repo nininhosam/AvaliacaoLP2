@@ -1,4 +1,4 @@
-package net.flpes.avaliacaolp2.gui;
+package net.flpes.avaliacaolp.gui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -7,11 +7,11 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import net.flpes.avaliacaolp2.models.Aluno;
-import net.flpes.avaliacaolp2.models.HistoricoPeso;
-import net.flpes.avaliacaolp2.models.HistoricoPesoBuilder;
-import net.flpes.avaliacaolp2.utils.DBUtils;
-import net.flpes.avaliacaolp2.utils.GUIUtils;
+import net.flpes.avaliacaolp.models.Aluno;
+import net.flpes.avaliacaolp.models.HistoricoPeso;
+import net.flpes.avaliacaolp.models.HistoricoPesoBuilder;
+import net.flpes.avaliacaolp.utils.DBUtils;
+import net.flpes.avaliacaolp.utils.GUIUtils;
 
 import java.io.IOException;
 import java.net.URL;
